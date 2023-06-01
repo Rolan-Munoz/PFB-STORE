@@ -1,0 +1,28 @@
+<h1>Lista de Categorias</h1>
+
+<table *ngIf="categories.length > 0">
+    <thead>
+        <th>Id</th>
+        <th>Imagen</th>
+        <th>Categoria</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let category of categories">
+            <td>{{ category.id }}</td>
+            <td>
+                <img class="img-category" [src]="'data:image/jpeg;base64,' + category.image" alt="">
+            </td>
+            <td>{{ category.name}}</td>
+            <td> 
+                <a [routerLink]="['/categories', category.id, 'items']">
+                    <button id="btnNavToCategoryItems">Articulos</button>
+                </a>
+            </td>
+            <td> <button id="btnEditCategory">Editar</button></td>
+            <td> <button id="btnDeleteCategory">Eliminar</button></td>
+        </tr>
+    </tbody>
+</table>
+
+

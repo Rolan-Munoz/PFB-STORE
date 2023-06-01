@@ -1,0 +1,74 @@
+<h1>{{tittle}}</h1>
+
+<form>
+    <div class="row">
+        <div class="form-group" class="col-12 col-md-6">
+            <label for="name">Nombre</label>
+            <input type="text" [(ngModel)]="nameFilter"  name="name">
+        </div>
+        <div class="form-group" class="col-12 col-md-3">
+            <label for="name">Price</label>
+            <input type="text" [(ngModel)]="priceFilter"  name="price">
+        </div>
+
+        <div class="col-12 col-md-3">
+            <button id="btnSearch" class="btn btn-secondary" (click)="searchByFilter()">Buscar</button>
+        </div>
+    </div>
+</form>
+
+
+<div id="nittpmCreateContainer" >
+    <button [routerLink]="['/items', 'new']">Nuevo Articulo</button>
+</div>
+
+<table *ngIf="items.length > 0">
+    <thead>
+        <th>Id</th>
+        <th>Imagen</th>
+        <th>Articulo</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of items">
+            <td>{{ item.id }}</td>
+            <td>
+                <img class="img-item" [src]="'data:image/jpeg;base64,' + item.image" alt="">
+            </td>
+            <td>{{ item.name}}</td>
+            <td>{{ item.price}}</td>
+
+            <button id="btnEditItem" [routerLink]="['/items',item.id]">Editar Template</button>
+                <button id="btnEditReactiveItem" [routerLink]="['/items','reactive',item.id]">Editar reactivo</button>
+            
+            
+            <td> <button id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete" (click)="prepareItemToDelete(item.id!);">Eliminar</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="botoneraPaginacion">
+    <button [disabled]="first" class="btn btn-secondary btnAtras" (click)="previusPage()">Anterior</button>
+    <span>Pagina {{(page+1)}} de {{totalPages}} - Elementos totales: {{totalElements}}</span>
+    <button [disabled]="last" class="btn btn-secondary btnSiguiente" (click)="nextPage()">Siguiente</button>
+</div>
+
+
+<div class="modal fade" id="askConfirmationDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmacion de Borrando</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Desea eliminar el producto seleccionado? Esta operacion no puede deshacerse
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteItem();">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
