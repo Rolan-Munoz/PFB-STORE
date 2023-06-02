@@ -12,7 +12,7 @@ public class User {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clienteSequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequence")
     private Long id;
 
     @Column(length = 100, nullable = false, unique = true)

@@ -12,9 +12,6 @@ public class UserDTO implements Serializable {
     private Long telefono;
     private String email;
     private String password;
-
-
-
     private boolean enabled;
 
     public UserDTO() {
