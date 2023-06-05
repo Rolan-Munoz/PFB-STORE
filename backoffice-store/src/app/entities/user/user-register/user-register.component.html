@@ -1,0 +1,82 @@
+<div class="user-register-container">
+    <h2>Registro de usuario</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+    <div class="form-group">
+        <label for="nick">Nick:</label>
+        <input type="text" id="nick" formControlName="nick" required>
+        <div *ngIf="registerForm.get('nick')!.errors?.['required'] && registerForm.get('nick')!.touched" class="error-message">
+        El nick es obligatorio.
+        </div>
+        <div *ngIf="registerForm.get('nick')!.errors?.['nickExists'] && registerForm.get('nick')!.touched" class="error-message">
+        El nick ya está en uso. Por favor, elige otro.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" formControlName="nombre" required>
+        <div *ngIf="registerForm.get('nombre')!.errors?.['required'] && registerForm.get('nombre')!.touched" class="error-message">
+        El nombre es obligatorio.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" formControlName="apellidos" required>
+        <div *ngIf="registerForm.get('apellidos')!.errors?.['required'] && registerForm.get('apellidos')!.touched" class="error-message">
+        Los apellidos son obligatorios.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" formControlName="telefono" required>
+        <div *ngIf="registerForm.get('telefono')!.errors?.['required'] && registerForm.get('telefono')!.touched" class="error-message">
+        El teléfono es obligatorio.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" required>
+        <div *ngIf="registerForm.get('email')!.errors?.['required'] && registerForm.get('email')!.touched" class="error-message">
+        El email es obligatorio.
+        </div>
+        <div *ngIf="registerForm.get('email')!.errors?.['email'] && registerForm.get('email')!.touched" class="error-message">
+        Por favor, introduce un email válido.
+        </div>
+        <div *ngIf="registerForm.get('email')!.errors?.['emailExists'] && registerForm.get('email')!.touched" class="error-message">
+        El email ya está en uso. Por favor, utiliza otro.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" formControlName="password" required>
+        <div *ngIf="registerForm.get('password')!.errors?.['required'] && registerForm.get('password')!.touched" class="error-message">
+        La contraseña es obligatoria.
+        </div>
+        <div *ngIf="registerForm.get('password')!.errors?.['minlength'] && registerForm.get('password')!.touched" class="error-message">
+            La contraseña debe tener al menos 6 caracteres.
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirmar Contraseña:</label>
+            <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+            <div *ngIf="registerForm.get('confirmPassword')!.errors?.['required'] && registerForm.get('confirmPassword')!.touched" class="error-message">
+            Debes confirmar la contraseña.
+            </div>
+            <div *ngIf="registerForm.get('confirmPassword')!.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')!.touched" class="error-message">
+            Las contraseñas no coinciden.
+            </div>
+        </div>
+    
+        <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+
+        <div *ngIf="registerForm.errors?.['customError']" class="error-message">
+            {{ registerForm.errors?.['customError'] }}
+        </div>
+    </form>
+</div>

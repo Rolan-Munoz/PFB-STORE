@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Item } from '../model/intem.model';
+import { Item } from '../model/item.model';
 import { ItemService } from '../service/item.service';
 
 @Component({

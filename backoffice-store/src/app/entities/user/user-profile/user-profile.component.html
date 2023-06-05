@@ -1,0 +1,12 @@
+<div *ngIf="user">
+  <h1 class="text-center">Bienvenido a tu perfil {{user.nick}}</h1>
+</div>
+
+<div *ngIf="user" class="user-profile-container">
+  <div class="user-info-card">
+    <p><strong>Nombre:</strong> <span class="user-info">{{ user.nombre }}</span></p>
+    <p><strong>Apellidos:</strong> <span class="user-info">{{ user.apellidos }}</span></p>
+    <p><strong>Teléfono:</strong> <span class="user-info">{{ user.telefono }}</span></p>
+    <p><strong>Email:</strong> <span class="user-info">{{ user.email }}</span></p>
+  </div>
+</div>

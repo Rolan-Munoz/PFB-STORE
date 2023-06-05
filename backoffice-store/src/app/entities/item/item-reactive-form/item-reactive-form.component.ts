@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '../../category/model/category.model';
 import { CategoryService } from '../../category/service/category.service';
-import { Item } from '../model/intem.model';
+import { Item } from '../model/item.model';
 import { ItemService } from '../service/item.service';
 
 @Component({

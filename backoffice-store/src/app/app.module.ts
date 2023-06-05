@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +17,15 @@ import { ItemListComponent } from './entities/item/item-list/item-list.component
 import { ItemFormComponent } from './entities/item/item-form/item-form.component';
 import { HttpRequestIntercept } from './config/interceptors/http-request-interceptor';
 
+
+
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/item-reactive-form.component';
+import { UserRegisterComponent } from './entities/user/user-register/user-register.component';
+import { UserProfileComponent } from './entities/user/user-profile/user-profile.component';
+import { AuthService } from './entities/user/auth.service';
+
+
 
 @NgModule({
   declarations: [
@@ -28,7 +37,11 @@ import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/it
     CategoryFormComponent,
     ItemListComponent,
     ItemFormComponent,
-    ItemReactiveFormComponent
+    ItemReactiveFormComponent,
+    UserRegisterComponent,
+    UserProfileComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -38,13 +51,17 @@ import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/it
     FormsModule,
     ReactiveFormsModule,
     AutoCompleteModule
+    
+    
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpRequestIntercept,
-      multi: true
-    }
+      multi: true,
+    },
+    CookieService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

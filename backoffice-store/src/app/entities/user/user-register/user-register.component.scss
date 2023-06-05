@@ -1,0 +1,65 @@
+.container {
+    position: relative;
+    padding-top: 50px; /* Ajusta el valor según la altura del navbar */
+    padding-bottom: 50px; /* Ajusta el valor según la altura del footer */
+}
+
+.user-register-container {
+    position: relative;
+    margin: 0 auto;
+    max-width: 400px; /* Ajusta el ancho máximo según tus necesidades */
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.user-register-container h2 {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.user-register-container form {
+display: flex;
+flex-direction: column;
+}
+
+.user-register-container .form-group {
+margin-bottom: 20px;
+}
+
+.user-register-container label {
+font-weight: bold;
+}
+
+.user-register-container input[type="text"],
+.user-register-container input[type="email"],
+.user-register-container input[type="password"] {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+
+.user-register-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(203, 49, 49);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.user-register-container .error-message {
+color: rgb(203, 49, 49);
+margin-top: 5px;
+font-size: 12px;
+}
+
+.user-register-container .error-message::first-letter {
+text-transform: uppercase;
+}

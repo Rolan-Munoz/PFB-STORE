@@ -1,5 +1,66 @@
 .nabvar {
     height: 80px;
-    background-color: black;
 }
+
+.login-form {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 9999; 
+    background-color: white; 
+    padding: 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none; 
+    margin: 20px; 
+    border: 2px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;
+    
+}
+
+.show {
+    display: block; 
+}
+
+.login-form label {
+    color: rgb(203, 49, 49);
+    margin-bottom: 10px;
+}
+
+.login-form input {
+    border-color: #ddd;
+    margin-bottom: 10px;
+}
+
+.login-form button {
+    background-color: black;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.login-form p,
+.login-form a {
+    color: rgb(203, 49, 49);
+    margin-bottom: 10px;
+}
+
+.nav-item-container {
+    display: flex;
+    align-items: center;
+}
+.nav-item-container > * {
+    margin-right: 10px;
+}
+
+.nav-link-nick {
+    font-size: 20px; 
+}
+
+.nav-link-logout {
+    font-size: 14px; 
+    color: red; 
+    cursor: pointer;
+}
+
 

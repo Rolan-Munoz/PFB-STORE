@@ -1,0 +1,33 @@
+.user-profile-container {
+margin: 50px auto;
+max-width: 400px;
+text-align: center;
+}
+
+.user-profile-container h2 {
+font-size: 24px;
+margin-bottom: 20px;
+}
+
+.user-info-card {
+background-color: #f2f2f2;
+padding: 20px;
+border-radius: 5px;
+text-align: left;
+}
+
+.user-info-card p {
+margin-bottom: 10px;
+}
+
+.user-info {
+font-weight: bold;
+color: #333;
+/* Agrega aquí los estilos adicionales que desees para la información del usuario */
+}
+
+h1 {
+    margin-top: 75px;
+    text-transform: uppercase;
+    font-weight: 35px;
+}
