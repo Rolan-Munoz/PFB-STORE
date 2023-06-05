@@ -39,10 +39,6 @@ public class User {
     @NotBlank
     private String password;
 
-
-    @Column(nullable = false)
-    private boolean enabled;
-
     public User() {
     }
 
@@ -104,11 +100,4 @@ public class User {
         this.password = password;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 }

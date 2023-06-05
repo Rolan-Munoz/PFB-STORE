@@ -12,7 +12,9 @@ public class UserDTO implements Serializable {
     private Long telefono;
     private String email;
     private String password;
-    private boolean enabled;
+    private String sessionId;
+
+
 
     public UserDTO() {
     }
@@ -75,11 +77,11 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

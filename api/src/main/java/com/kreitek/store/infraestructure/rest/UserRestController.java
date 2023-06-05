@@ -5,14 +5,14 @@ import com.kreitek.store.application.dto.UserDTO;
 import com.kreitek.store.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -67,34 +67,45 @@ public class UserRestController {
         String encodedPassword = passwordEncoder().encode(userDTO.getPassword());
         userDTO.setPassword(encodedPassword);
         UserDTO savedCliente = this.userService.saveUser(userDTO);
-        return new ResponseEntity<>(savedCliente, HttpStatus.OK);
+
+
+        String sessionValue = UUID.randomUUID().toString();
+        savedCliente.setSessionId(sessionValue);
+
+        return ResponseEntity.ok(savedCliente);
     }
 
     @CrossOrigin
     @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<UserDTO> loginUser(@RequestBody UserDTO userDTO, HttpServletResponse response) {
-        // Obtener el usuario por su nick
+    public ResponseEntity<UserDTO> loginUser(@RequestBody UserDTO userDTO) {
         Optional<UserDTO> userOptional = userService.getUserByNick(userDTO.getNick());
 
         if (userOptional.isPresent()) {
             UserDTO user = userOptional.get();
-            // Verificar la contraseña cifrada
-            if (passwordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
-                // Generar y enviar la cookie al cliente para mantener la sesión abierta
-                String sessionValue = UUID.randomUUID().toString();
-                Cookie sessionCookie = new Cookie("sessionId", sessionValue);
-                sessionCookie.setMaxAge(24 * 60 * 60); // Configurar la expiración de la cookie (en segundos)
-                sessionCookie.setPath("/");
-                response.addCookie(sessionCookie);
 
-                // Devolver el usuario autenticado
+            if (passwordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
+                String sessionValue = UUID.randomUUID().toString();
+                user.setSessionId(sessionValue);
+
+                // Guardar el usuario con el token en la base de datos o en algún lugar persistente
+                // Por ejemplo, userService.saveUser(user);
+
                 return ResponseEntity.ok(user);
             }
         }
 
-        // La autenticación falló
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
+
+    @CrossOrigin
+    @PostMapping(value = "/logout", produces = "application/json")
+    public ResponseEntity<Void> logoutUser() {
+
+
+        return ResponseEntity.ok().build();
+    }
+
 
 
 
@@ -112,4 +123,22 @@ public class UserRestController {
         this.userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @GetMapping(value = "/users/exists/email/{email}", produces = "application/json")
+    public ResponseEntity<Boolean> checkEmailExists(@PathVariable String email) {
+        boolean exists = userService.existsUserByEmail(email);
+        return ResponseEntity.ok(exists);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/users/exists/nick/{nick}", produces = "application/json")
+    public ResponseEntity<Boolean> checkNickExists(@PathVariable String nick) {
+        boolean exists = userService.existsUserByNick(nick);
+        return ResponseEntity.ok(exists);
+    }
+
+
+
+
 }

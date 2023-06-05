@@ -5,11 +5,12 @@ import com.kreitek.store.domain.entity.User;
 import com.kreitek.store.domain.persistence.UserPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Service
 public class UserPersistenceImpl implements UserPersistence {
 
     private final UserRepository userRepository;

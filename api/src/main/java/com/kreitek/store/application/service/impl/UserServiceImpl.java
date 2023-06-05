@@ -48,20 +48,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean existsUserByNick(String nick) {
+        return this.userPersistence.existsUserByNick(nick);
+    }
+
+
+    @Override
     public Optional<UserDTO> getUserByNick(String nick) {
         return this.userPersistence.getUserByNick(nick).map(userMapper::toDto);
 
     }
 
-    @Override
-    public boolean existsUserByNick(String nick) {
-        return this.userPersistence.existsUserByNick(nick);
-    }
 
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
-       User userSaved = this.userPersistence.saveUser(this.userMapper.toEntity(userDTO));
-       return this.userMapper.toDto(userSaved);
+        User user = this.userMapper.toEntity(userDTO);
+        User userSaved = this.userPersistence.saveUser(user);
+        return this.userMapper.toDto(userSaved);
     }
 
     @Override
