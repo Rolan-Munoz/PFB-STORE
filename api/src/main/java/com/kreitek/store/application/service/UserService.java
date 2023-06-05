@@ -21,7 +21,7 @@ public interface UserService {
 
     boolean existsUserByNick(String nick);
 
-    UserDTO saveUser(UserDTO userId);
+    UserDTO saveUser(UserDTO user);
 
     void deleteUser(Long userId);
 
