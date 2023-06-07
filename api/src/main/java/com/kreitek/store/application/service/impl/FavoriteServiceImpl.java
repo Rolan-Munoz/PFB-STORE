@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +28,11 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public FavoriteDTO addFavorite(Long userId, Long itemId) {
+        // Verificar si el favorito ya existe para el usuario y el item
+        if (isFavorite(userId, itemId)) {
+            throw new IllegalArgumentException("Item is already a favorite");
+        }
+
         Favorite favorite = new Favorite();
         User user = new User();
         user.setId(userId);
@@ -41,10 +47,20 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void removeFavorite(Long userId, Long itemId) {
-        Favorite favorite = favoritePersistence.getFavoriteByUserAndItem(userId, itemId)
-                .orElseThrow(() -> new IllegalArgumentException("Favorite not found"));
-        favoritePersistence.deleteFavorite(favorite.getId());
+        // Obtener el Optional de Favorite a partir del userId y itemId
+        Optional<Favorite> favoriteOptional = favoritePersistence.getFavoriteIdByUserAndItem(userId, itemId);
+
+        if (favoriteOptional.isPresent()) {
+            // Obtener el favoriteId del Optional y eliminar el favorito
+            Long favoriteId = favoriteOptional.get().getId();
+            favoritePersistence.deleteFavorite(favoriteId);
+        } else {
+            throw new IllegalArgumentException("Favorite not found");
+        }
     }
+
+
+
 
     @Override
     public List<FavoriteDTO> getFavoritesByUser(Long userId) {
@@ -54,9 +70,13 @@ public class FavoriteServiceImpl implements FavoriteService {
                 .collect(Collectors.toList());
     }
 
+
+
     @Override
     public boolean isFavorite(Long userId, Long itemId) {
-        return favoritePersistence.getFavoriteByUserAndItem(userId, itemId).isPresent();
+        Optional<Favorite> favoriteOptional = favoritePersistence.getFavoriteIdByUserAndItem(userId, itemId);
+        return favoriteOptional.isPresent();
     }
+
 
 }

@@ -43,18 +43,20 @@ export class UserRegisterComponent {
       const user = this.registerForm.value as User;
       this.userService.registerUser(user).subscribe(
         (response) => {
-          // Registro exitoso, guardar el token de sesión y la información del usuario en el almacenamiento local
-          if (response.body) {
+          if (response.body && response.body.id !== undefined) {
+            // Guardar el token de sesión y la información del usuario en el almacenamiento local
             const sessionId = response.body.sessionId;
             if (sessionId) {
               localStorage.setItem('sessionId', sessionId);
             } else {
               // Manejar el caso cuando sessionId es undefined
             }
-          }
-          
-          localStorage.setItem('user', JSON.stringify(response.body));
-          if (response.body) {
+      
+            localStorage.setItem('user', JSON.stringify(response.body));
+      
+            // Guardar el ID del usuario en el localStorage
+            localStorage.setItem('id', response.body.id.toString());
+      
             // Redirigir a la página de perfil del usuario
             this.router.navigate(['users', response.body.id]);
           }
@@ -65,8 +67,11 @@ export class UserRegisterComponent {
           // Manejar el error aquí
         }
       );
+      
+      
     }
   }
+  
 
   // Método para verificar si el email ya existe
   checkEmailExists(control: AbstractControl): Observable<ValidationErrors | null> {

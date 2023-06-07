@@ -87,8 +87,7 @@ public class UserRestController {
                 String sessionValue = UUID.randomUUID().toString();
                 user.setSessionId(sessionValue);
 
-                // Guardar el usuario con el token en la base de datos o en algún lugar persistente
-                // Por ejemplo, userService.saveUser(user);
+
 
                 return ResponseEntity.ok(user);
             }

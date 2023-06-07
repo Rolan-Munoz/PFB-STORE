@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface FavoritePersistence {
     List<Favorite> getFavoritesByUser(Long userId);
 
-    Optional<Favorite> getFavoriteByUserAndItem(Long userId, Long itemId);
+    Optional<Favorite> getFavoriteIdByUserAndItem(Long userId, Long itemId);
 
     Favorite saveFavorite(Favorite favorite);
 

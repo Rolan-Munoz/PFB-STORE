@@ -24,6 +24,8 @@ import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/it
 import { UserRegisterComponent } from './entities/user/user-register/user-register.component';
 import { UserProfileComponent } from './entities/user/user-profile/user-profile.component';
 import { AuthService } from './entities/user/auth.service';
+import { ItemDetailsComponent } from './entities/item/item-details/item-details.component';
+
 
 
 
@@ -40,6 +42,7 @@ import { AuthService } from './entities/user/auth.service';
     ItemReactiveFormComponent,
     UserRegisterComponent,
     UserProfileComponent,
+    ItemDetailsComponent
     
     
   ],

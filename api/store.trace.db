@@ -701,3 +701,11 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /Users/rolanmuno
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 141 more
+2023-06-06 13:42:16 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "'' (FAVORITES: ""ID"" BIGINT NOT NULL)"
+Data conversion error converting "'' (FAVORITES: ""ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO "PUBLIC"."FAVORITES"("ID","ITEM_ID","USER_ID")VALUES(?,?,?) [22018-214]
+2023-06-06 13:42:16 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "'' (FAVORITES: ""ID"" BIGINT NOT NULL)"
+Data conversion error converting "'' (FAVORITES: ""ID"" BIGINT NOT NULL)"; SQL statement:
+INSERT INTO "PUBLIC"."FAVORITES"("ID","ITEM_ID","USER_ID")VALUES(?,?,?) [22018-214]

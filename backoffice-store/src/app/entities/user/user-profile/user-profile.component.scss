@@ -1,33 +1,71 @@
-.user-profile-container {
-margin: 50px auto;
-max-width: 400px;
-text-align: center;
-}
-
-.user-profile-container h2 {
-font-size: 24px;
-margin-bottom: 20px;
-}
-
-.user-info-card {
-background-color: #f2f2f2;
-padding: 20px;
-border-radius: 5px;
-text-align: left;
-}
-
-.user-info-card p {
-margin-bottom: 10px;
-}
-
-.user-info {
-font-weight: bold;
-color: #333;
-/* Agrega aquí los estilos adicionales que desees para la información del usuario */
-}
 
 h1 {
-    margin-top: 75px;
+    margin-top: 50px;
+    font-size: 50px;
     text-transform: uppercase;
-    font-weight: 35px;
+}
+
+h2 {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.user-profile {
+    background-color: #ffcccc;
+    border: 1px solid black;
+    padding: 10px;
+    margin-left: 50px;
+    margin-top: 80px;
+    width: 40%;
+    font-size: 18px;
+}
+
+
+.user-info {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+
+
+
+.item-img {
+    object-fit: cover;
+    height: 50px; 
+}
+
+.favorite-items {
+    margin-top: 100px;
+    margin-left: 50px;
+    width: 40%;
+} 
+
+.favorite-items table {
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+}
+
+.favorite-items th,
+.favorite-items td {
+    border-bottom: 1px solid black;
+    padding: 0 10px;
+}
+.favorite-items th {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+.favorite-items td {
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+.favorite-items .remove-button {
+    color: red;
+}
+
+.favorite-items .remove-button:hover {
+    color: darkred;
 }

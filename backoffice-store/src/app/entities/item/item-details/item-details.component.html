@@ -1,0 +1,20 @@
+<div class="card">
+<img class="card-img-top" [src]="'data:image/jpeg;base64,' + item?.image" alt="Imagen del producto">
+<div class="card-body">
+    <h2 class="card-title">Detalles del artículo</h2>
+    <div *ngIf="item">
+    <h3>{{ item.name }}</h3>
+    <p>{{ item.categoryName }}</p>
+    <p>{{ item.description }}</p>
+    <p>{{ item.price }}</p>
+    </div>
+    <button class="btn btn-link" (click)="toggleFavorite()">
+        <span *ngIf="isFavorite">Quitar Favoritos</span>
+        <span *ngIf="!isFavorite">Añadir Favoritos</span>
+    </button>
+    <div *ngIf="showFavoriteMessage">
+        <p *ngIf="isFavorite">Añadido a favoritos</p>
+        <p *ngIf="!isFavorite">Eliminado de favoritos</p>
+    </div>    
+</div>
+</div>

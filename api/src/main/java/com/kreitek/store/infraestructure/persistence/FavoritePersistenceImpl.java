@@ -24,9 +24,10 @@ public class FavoritePersistenceImpl implements FavoritePersistence {
     }
 
     @Override
-    public Optional<Favorite> getFavoriteByUserAndItem(Long userId, Long itemId) {
+    public Optional<Favorite> getFavoriteIdByUserAndItem(Long userId, Long itemId) {
         return favoriteRepository.findByUserIdAndItemId(userId, itemId);
     }
+
 
     @Override
     public Favorite saveFavorite(Favorite favorite) {
