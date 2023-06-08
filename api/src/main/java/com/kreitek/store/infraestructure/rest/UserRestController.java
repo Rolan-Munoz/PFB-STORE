@@ -58,6 +58,7 @@ public class UserRestController {
         }
     }
 
+    @CrossOrigin
 
     @PostMapping(value = "/users", produces = "application/json", consumes = "application/json")
     ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
