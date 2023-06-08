@@ -59,6 +59,7 @@ public class UserRestController {
     }
 
 
+    @CrossOrigin
     @PostMapping(value = "/users", produces = "application/json", consumes = "application/json")
     ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         if (userService.existsUserByEmail(userDTO.getEmail())) {
@@ -71,18 +72,11 @@ public class UserRestController {
         userDTO.setPassword(encodedPassword);
         UserDTO savedCliente = this.userService.saveUser(userDTO);
 
-<<<<<<< HEAD
-
-        String sessionValue = UUID.randomUUID().toString();
-        savedCliente.setSessionId(sessionValue);
-
-=======
         String sessionToken = UUID.randomUUID().toString();
         Session session = new Session(sessionToken, savedCliente.getId());
         sessionManager.addSession(sessionToken, session);
 
         savedCliente.setSessionId(sessionToken);
->>>>>>> release/HITO2-2.0.0
         return ResponseEntity.ok(savedCliente);
     }
 
@@ -97,17 +91,6 @@ public class UserRestController {
 
             if (passwordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
                 String sessionValue = UUID.randomUUID().toString();
-<<<<<<< HEAD
-                user.setSessionId(sessionValue);
-
-                // Guardar el usuario con el token en la base de datos o en algún lugar persistente
-                // Por ejemplo, userService.saveUser(user);
-
-                return ResponseEntity.ok(user);
-            }
-        }
-
-=======
                 Session session = new Session(sessionValue, user.getId());
                 sessionManager.addSession(sessionValue, session);
                 user.setSessionId(sessionValue);
@@ -115,29 +98,17 @@ public class UserRestController {
                 return ResponseEntity.ok(user);
             }
         }
->>>>>>> release/HITO2-2.0.0
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 
     @CrossOrigin
     @PostMapping(value = "/logout", produces = "application/json")
-<<<<<<< HEAD
-    public ResponseEntity<Void> logoutUser() {
-
-
-        return ResponseEntity.ok().build();
-    }
-
-
-
-=======
     public ResponseEntity<Void> logoutUser(@RequestHeader("Authorization") String sessionToken) {
         sessionManager.removeSession(sessionToken);
         return ResponseEntity.ok().build();
     }
 
->>>>>>> release/HITO2-2.0.0
 
     @CrossOrigin
     @PatchMapping(value = "/users", produces = "application/json", consumes = "application/json")
@@ -168,13 +139,10 @@ public class UserRestController {
         return ResponseEntity.ok(exists);
     }
 
-<<<<<<< HEAD
-=======
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
->>>>>>> release/HITO2-2.0.0
 
 
 
