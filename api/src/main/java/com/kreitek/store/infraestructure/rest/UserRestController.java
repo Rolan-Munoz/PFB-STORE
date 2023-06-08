@@ -58,8 +58,8 @@ public class UserRestController {
         }
     }
 
-    @CrossOrigin
 
+    @CrossOrigin
     @PostMapping(value = "/users", produces = "application/json", consumes = "application/json")
     ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         if (userService.existsUserByEmail(userDTO.getEmail())) {
@@ -72,11 +72,13 @@ public class UserRestController {
         userDTO.setPassword(encodedPassword);
         UserDTO savedCliente = this.userService.saveUser(userDTO);
 
+
         String sessionToken = UUID.randomUUID().toString();
         Session session = new Session(sessionToken, savedCliente.getId());
         sessionManager.addSession(sessionToken, session);
 
         savedCliente.setSessionId(sessionToken);
+
         return ResponseEntity.ok(savedCliente);
     }
 
@@ -91,6 +93,7 @@ public class UserRestController {
 
             if (passwordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
                 String sessionValue = UUID.randomUUID().toString();
+
                 Session session = new Session(sessionValue, user.getId());
                 sessionManager.addSession(sessionValue, session);
                 user.setSessionId(sessionValue);
@@ -104,10 +107,12 @@ public class UserRestController {
 
     @CrossOrigin
     @PostMapping(value = "/logout", produces = "application/json")
+
     public ResponseEntity<Void> logoutUser(@RequestHeader("Authorization") String sessionToken) {
         sessionManager.removeSession(sessionToken);
         return ResponseEntity.ok().build();
     }
+
 
 
     @CrossOrigin
@@ -139,10 +144,12 @@ public class UserRestController {
         return ResponseEntity.ok(exists);
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 
 
