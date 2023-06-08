@@ -31,7 +31,9 @@ export class AuthService {
       switchMap((response) => {
         if (response.sessionId && response.id !== undefined) {
           localStorage.setItem('sessionId', response.sessionId);
-          localStorage.setItem('user', JSON.stringify(user));
+  
+          // Guardar el ID del usuario en el localStorage
+          localStorage.setItem('id', response.id.toString());
   
           // Realizar una solicitud adicional para obtener los datos completos del usuario
           return this.userService.getUserById(response.id).pipe(
@@ -64,6 +66,7 @@ export class AuthService {
       () => {
         localStorage.removeItem('sessionId');
         localStorage.removeItem('user');
+        localStorage.clear();
         this.router.navigateByUrl('/');
       },
       (error) => {

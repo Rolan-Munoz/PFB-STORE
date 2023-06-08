@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../model/item.model';
 import { ItemService } from '../service/item.service';
 
@@ -31,7 +31,8 @@ export class ItemListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private router: Router
   ) {}
 
 
@@ -46,6 +47,11 @@ export class ItemListComponent implements OnInit {
         this.tittle = "Lista de Articulos";
         
       }this.getAllItems();
+  }
+
+
+  getItemDetails(itemId: number): void {
+    this.router.navigate(['items', itemId]);
   }
 
   public nextPage(): void {
@@ -77,6 +83,8 @@ export class ItemListComponent implements OnInit {
     }
     
   }
+
+  
 
 
   private buildFilters(): string | undefined  {

@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryListComponent } from './entities/category/category-list/category-list.component';
+import { ItemDetailsComponent } from './entities/item/item-details/item-details.component';
 import { ItemFormComponent } from './entities/item/item-form/item-form.component';
 import { ItemListComponent } from './entities/item/item-list/item-list.component';
 import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/item-reactive-form.component';
@@ -13,8 +14,9 @@ const routes: Routes = [
   { path: 'categories', component: CategoryListComponent},
   { path: 'items', component: ItemListComponent},
   { path: 'categories/:categoryId/items', component: ItemListComponent},
-  { path: 'items/:itemId', component: ItemFormComponent},
-  { path: 'items/reactive/:itemId', component: ItemReactiveFormComponent},
+  { path: 'admin/items/:itemId', component: ItemFormComponent},
+  { path: 'admin/items/reactive/:itemId', component: ItemReactiveFormComponent},
+  { path: 'items/:itemId', component: ItemDetailsComponent},
   { path: 'users/user-register', component: UserRegisterComponent},
   { path: 'users/:userId', component: UserProfileComponent}
 

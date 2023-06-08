@@ -1,12 +1,60 @@
+
 <div *ngIf="user">
-  <h1 class="text-center">Bienvenido a tu perfil {{user.nick}}</h1>
+  <h1 class="text-center">Bienvenido a tu perfil {{ user.nick }}</h1>
 </div>
 
-<div *ngIf="user" class="user-profile-container">
-  <div class="user-info-card">
-    <p><strong>Nombre:</strong> <span class="user-info">{{ user.nombre }}</span></p>
-    <p><strong>Apellidos:</strong> <span class="user-info">{{ user.apellidos }}</span></p>
-    <p><strong>Teléfono:</strong> <span class="user-info">{{ user.telefono }}</span></p>
-    <p><strong>Email:</strong> <span class="user-info">{{ user.email }}</span></p>
+
+
+<div *ngIf="user" class="user-profile">
+  <div class="user-info">
+      <h2>Datos del Usuario</h2>
+      <div>
+        <p><strong>Nombre:</strong> <span class="user-info">{{ user.nombre }}</span></p>
+        <p><strong>Apellidos:</strong> <span class="user-info">{{ user.apellidos }}</span></p>
+      </div>
+      <div>
+        <p><strong>Teléfono:</strong> <span class="user-info">{{ user.telefono }}</span></p>
+        <p><strong>Email:</strong> <span class="user-info">{{ user.email }}</span></p>
+      </div>
   </div>
 </div>
+
+<div *ngIf="items.length > 0" class="favorite-items">
+  <h2 class="text-center">favoritos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Categoría</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>
+            <a [routerLink]="['/items', item.id]">
+              <img class="item-img" [src]="'data:image/jpeg;base64,' + item?.image" alt="Imagen del producto">
+            </a>
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.categoryName }}</td>
+          <td><button class="remove-button" (click)="removeFromFavorites(item)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+<div *ngIf="items.length === 0" class="no-favorites">
+  <p>No tienes artículos favoritos.</p>
+</div>
+
+
+
+
+
+
+

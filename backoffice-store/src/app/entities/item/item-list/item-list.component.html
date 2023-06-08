@@ -34,13 +34,13 @@
         <tr *ngFor="let item of items">
             <td>{{ item.id }}</td>
             <td>
-                <img class="img-item" [src]="'data:image/jpeg;base64,' + item.image" alt="">
+                <img class="img-item"  *ngIf="item.id" [src]="'data:image/jpeg;base64,' + item.image" alt="" (click)="getItemDetails(item.id)">
             </td>
             <td>{{ item.name}}</td>
             <td>{{ item.price}}</td>
 
-            <button id="btnEditItem" [routerLink]="['/items',item.id]">Editar Template</button>
-                <button id="btnEditReactiveItem" [routerLink]="['/items','reactive',item.id]">Editar reactivo</button>
+            <button id="btnEditItem" [routerLink]="['/admin/items',item.id]">Editar Template</button>
+                <button id="btnEditReactiveItem" [routerLink]="['/admin/items','reactive',item.id]">Editar reactivo</button>
             
             
             <td> <button id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete" (click)="prepareItemToDelete(item.id!);">Eliminar</button></td>
