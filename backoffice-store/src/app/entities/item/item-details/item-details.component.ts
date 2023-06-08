@@ -16,6 +16,7 @@ export class ItemDetailsComponent implements OnInit {
   isFavorite: boolean = false;
   userId?: number; 
   showFavoriteMessage: boolean =false
+  showLoginMessage: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +33,6 @@ export class ItemDetailsComponent implements OnInit {
           this.item = item;
           
           this.userId = Number(localStorage.getItem('id'));
-          localStorage.setItem('id', this.userId.toString());
           console.log("User ID stored in localStorage:", this.userId);
 
           if (this.userId) {
@@ -48,22 +48,31 @@ export class ItemDetailsComponent implements OnInit {
 
   toggleFavorite(): void {
     const itemId = Number(this.itemId);
-    if (this.isFavorite) {
-      this.userId && this.favoriteService.removeFavorite(this.userId, itemId).subscribe(() => {
-        this.isFavorite = false;
-        this.showFavoriteMessage = true;
-        setTimeout(() => {
-          this.showFavoriteMessage = false;
-        }, 2000);
-      });
+    if (this.userId) {
+      if (this.isFavorite) {
+        this.favoriteService.removeFavorite(this.userId, itemId).subscribe(() => {
+          this.isFavorite = false;
+          this.showFavoriteMessage = true;
+          setTimeout(() => {
+            this.showFavoriteMessage = false;
+          }, 2000);
+        });
+      } else {
+        this.favoriteService.addFavorite(this.userId, itemId).subscribe(() => {
+          this.isFavorite = true;
+          this.showFavoriteMessage = true;
+          setTimeout(() => {
+            this.showFavoriteMessage = false;
+          }, 2000);
+        });
+      }
     } else {
-      this.userId && this.favoriteService.addFavorite(this.userId, itemId).subscribe(() => {
-        this.isFavorite = true;
-        this.showFavoriteMessage = true;
-        setTimeout(() => {
-          this.showFavoriteMessage = false;
-        }, 2000);
-      });
+      // El userId no está definido porque el usuario no ha iniciado sesión
+      // Mostrar un mensaje al usuario
+      this.showLoginMessage = true;
+      setTimeout(() => {
+        this.showLoginMessage = false;
+      }, 2000);
     }
   }
   

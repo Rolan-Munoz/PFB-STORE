@@ -9,9 +9,12 @@
     <p>{{ item.price }}</p>
     </div>
     <button class="btn btn-link" (click)="toggleFavorite()">
-        <span *ngIf="isFavorite">Quitar Favoritos</span>
-        <span *ngIf="!isFavorite">Añadir Favoritos</span>
+        <button *ngIf="isFavorite">Quitar Favoritos</button>
+        <button *ngIf="!isFavorite">Añadir Favoritos</button>
     </button>
+    <div *ngIf="showLoginMessage">
+        <p>Inicia sesión para añadir o eliminar elementos de tus favoritos</p>
+    </div>
     <div *ngIf="showFavoriteMessage">
         <p *ngIf="isFavorite">Añadido a favoritos</p>
         <p *ngIf="!isFavorite">Eliminado de favoritos</p>

@@ -14,15 +14,19 @@ export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   nick: string = "";
   isLoginFormVisible = false;
+  userId: number | undefined;
 
 
   loginForm!: FormGroup;
   error: string ="";
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private  userService: UserService,  private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private  userService: UserService,  private router: Router) {
+    this.userId =this.userService.getUserIdFromLocalStorage();
+  }
 
 
   ngOnInit(): void {
+    this.userId = this.userService.getUserIdFromLocalStorage();
     const sessionId = localStorage.getItem('sessionId');
     if (sessionId) {
       this.isLoggedIn = true;
@@ -38,6 +42,7 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
+    this.userId = this.userService.getUserIdFromLocalStorage();
   }
 
   getNickFromService(): void {
@@ -56,18 +61,21 @@ export class NavbarComponent implements OnInit {
     if (this.loginForm.valid) {
       const nickControl = this.loginForm.get('nick');
       const passwordControl = this.loginForm.get('password');
-  
+
       if (nickControl && passwordControl) {
         const nick = nickControl.value;
         const password = passwordControl.value;
-  
+
         this.authService.login(nick, password).subscribe({
           next: () => {
             this.isLoggedIn = true;
             this.hideLoginForm();
             this.getNickFromService();
-            
-            this.router.navigate(['/']);
+
+            const userId = this.userService.getUserIdFromLocalStorage();
+            if (userId) {
+              this.router.navigate(['/users', userId]); // Navegar a la ruta del perfil del usuario
+            }
           },
           error: (error) => {
             this.error = 'Credenciales inválidas. Por favor, inténtalo nuevamente.';
@@ -77,10 +85,4 @@ export class NavbarComponent implements OnInit {
       }
     }
   }
-  
-  
-  
-  
-  
-  
 }

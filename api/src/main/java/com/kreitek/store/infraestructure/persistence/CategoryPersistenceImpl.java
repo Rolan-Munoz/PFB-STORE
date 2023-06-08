@@ -20,7 +20,6 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
         this.categoryRepository = categoryRepository;
     }
 
-
     @Override
     public List<Category> getAllCategories() {
         return this.categoryRepository.findAll();

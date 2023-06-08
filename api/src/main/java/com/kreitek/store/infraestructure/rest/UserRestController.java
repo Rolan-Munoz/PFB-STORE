@@ -3,6 +3,8 @@ package com.kreitek.store.infraestructure.rest;
 
 import com.kreitek.store.application.dto.UserDTO;
 import com.kreitek.store.application.service.UserService;
+import com.kreitek.store.infraestructure.session.Session;
+import com.kreitek.store.infraestructure.session.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,17 +25,14 @@ import java.util.UUID;
 public class UserRestController {
 
     private final UserService userService;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private final SessionManager sessionManager;
 
 
     @Autowired
-    public UserRestController(UserService userService) {
+    public UserRestController(UserService userService, SessionManager sessionManager) {
         this.userService = userService;
 
+        this.sessionManager = sessionManager;
     }
 
     @CrossOrigin
@@ -44,18 +44,21 @@ public class UserRestController {
 
     @CrossOrigin
     @GetMapping(value = "/users/{userId}", produces = "application/json")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
-        Optional<UserDTO> userOptional = userService.getUserById(userId);
-        if (userOptional.isPresent()) {
-            UserDTO user = userOptional.get();
-            return ResponseEntity.ok(user);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId, @RequestHeader("Authorization") String sessionToken) {
+        if (sessionManager.isValid(sessionToken)) {
+            Optional<UserDTO> userOptional = userService.getUserById(userId);
+            if (userOptional.isPresent()) {
+                UserDTO user = userOptional.get();
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
 
-    @CrossOrigin
     @PostMapping(value = "/users", produces = "application/json", consumes = "application/json")
     ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         if (userService.existsUserByEmail(userDTO.getEmail())) {
@@ -68,12 +71,14 @@ public class UserRestController {
         userDTO.setPassword(encodedPassword);
         UserDTO savedCliente = this.userService.saveUser(userDTO);
 
+        String sessionToken = UUID.randomUUID().toString();
+        Session session = new Session(sessionToken, savedCliente.getId());
+        sessionManager.addSession(sessionToken, session);
 
-        String sessionValue = UUID.randomUUID().toString();
-        savedCliente.setSessionId(sessionValue);
-
+        savedCliente.setSessionId(sessionToken);
         return ResponseEntity.ok(savedCliente);
     }
+
 
     @CrossOrigin
     @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
@@ -85,27 +90,23 @@ public class UserRestController {
 
             if (passwordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
                 String sessionValue = UUID.randomUUID().toString();
+                Session session = new Session(sessionValue, user.getId());
+                sessionManager.addSession(sessionValue, session);
                 user.setSessionId(sessionValue);
-
-
 
                 return ResponseEntity.ok(user);
             }
         }
-
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 
     @CrossOrigin
     @PostMapping(value = "/logout", produces = "application/json")
-    public ResponseEntity<Void> logoutUser() {
-
-
+    public ResponseEntity<Void> logoutUser(@RequestHeader("Authorization") String sessionToken) {
+        sessionManager.removeSession(sessionToken);
         return ResponseEntity.ok().build();
     }
-
-
 
 
     @CrossOrigin
@@ -137,6 +138,10 @@ public class UserRestController {
         return ResponseEntity.ok(exists);
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
 

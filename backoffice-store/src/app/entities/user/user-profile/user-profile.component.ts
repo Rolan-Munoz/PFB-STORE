@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FavoriteService } from '../../favorite/service/favorite.service';
 import { Item } from '../../item/model/item.model';
 import { ItemService } from '../../item/service/item.service';
 
 
 import { User } from '../model/user.model';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,26 +20,31 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private favoriteService: FavoriteService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-  const user = localStorage.getItem('user');
-  if (user) {
-    this.user = JSON.parse(user);
-
-    if (this.user?.id) {
-      this.favoriteService.getUserFavorites(this.user.id).subscribe(items => {
-        items.forEach(item => {
-          console.log(item.item.id)
-          const itemId = Number(item.item.id);
-          this.itemService.getItemById(itemId).subscribe(item => {
-            this.items.push(item);
+    // Obtener el userId de la URL
+    const userId = Number(this.route.snapshot.paramMap.get('userId'));
+  
+    // Hacer la petición al servidor para obtener la información del usuario
+    this.userService.getUserById(userId).subscribe(user => {
+      this.user = user;
+  
+      if (this.user?.id) {
+        this.favoriteService.getUserFavorites(this.user.id).subscribe(items => {
+          items.forEach(item => {
+            console.log(item.item.id)
+            const itemId = Number(item.item.id);
+            this.itemService.getItemById(itemId).subscribe(item => {
+              this.items.push(item);
+            });
           });
         });
-      });
-    }
-    } 
+      }
+    });
   }
 
   removeFromFavorites(item: Item): void {

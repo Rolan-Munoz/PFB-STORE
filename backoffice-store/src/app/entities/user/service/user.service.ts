@@ -42,14 +42,15 @@ export class UserService {
 
 
   checkEmailExists(email: string): Observable<boolean> {
-    let urlEndpoint: string = "http://localhost:8080/store/users/exist/mail" + email;
+    let urlEndpoint: string = "http://localhost:8080/store/users/exists/email/" + email;
     return this.http.get<boolean>(urlEndpoint);
   }
-
+  
   checkNickExists(nick: string): Observable<boolean> {
-    let urlEndpoint: string = "http://localhost:8080/store/users/exist/nick" + nick;
+    let urlEndpoint: string = "http://localhost:8080/store/users/exists/nick/" + nick;
     return this.http.get<boolean>(urlEndpoint);
   }
+  
 
   getNickFromLocalStorage(): string {
     const sessionId = localStorage.getItem('sessionId');

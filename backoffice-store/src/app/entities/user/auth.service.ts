@@ -66,6 +66,7 @@ export class AuthService {
       () => {
         localStorage.removeItem('sessionId');
         localStorage.removeItem('user');
+        localStorage.clear();
         this.router.navigateByUrl('/');
       },
       (error) => {

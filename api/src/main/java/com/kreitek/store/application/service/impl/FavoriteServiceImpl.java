@@ -28,11 +28,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public FavoriteDTO addFavorite(Long userId, Long itemId) {
-        // Verificar si el favorito ya existe para el usuario y el item
         if (isFavorite(userId, itemId)) {
             throw new IllegalArgumentException("Item is already a favorite");
         }
-
         Favorite favorite = new Favorite();
         User user = new User();
         user.setId(userId);
@@ -44,23 +42,17 @@ public class FavoriteServiceImpl implements FavoriteService {
         return favoriteMapper.toDto(savedFavorite);
     }
 
-
     @Override
     public void removeFavorite(Long userId, Long itemId) {
-        // Obtener el Optional de Favorite a partir del userId y itemId
         Optional<Favorite> favoriteOptional = favoritePersistence.getFavoriteIdByUserAndItem(userId, itemId);
 
         if (favoriteOptional.isPresent()) {
-            // Obtener el favoriteId del Optional y eliminar el favorito
             Long favoriteId = favoriteOptional.get().getId();
             favoritePersistence.deleteFavorite(favoriteId);
         } else {
             throw new IllegalArgumentException("Favorite not found");
         }
     }
-
-
-
 
     @Override
     public List<FavoriteDTO> getFavoritesByUser(Long userId) {
@@ -69,8 +61,6 @@ public class FavoriteServiceImpl implements FavoriteService {
                 .map(favoriteMapper::toDto)
                 .collect(Collectors.toList());
     }
-
-
 
     @Override
     public boolean isFavorite(Long userId, Long itemId) {
