@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 import { User } from '../model/user.model';
 import { UserService } from '../service/user.service';
-
 
 @Component({
   selector: 'app-user-register',
@@ -13,30 +13,34 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./user-register.component.scss']
 })
 export class UserRegisterComponent {
-  registerForm = this.fb.group({
-    nick: [
-      '',
-      Validators.required,
-      (control: AbstractControl) => this.checkNickExists(control)
-    ],
-    nombre: ['', Validators.required],
-    apellidos: ['', Validators.required],
-    telefono: ['', Validators.required],
-    email: [
-      '',
-      [Validators.required, Validators.email],
-      (control: AbstractControl) => this.checkEmailExists(control)
-    ],
-    password: ['', Validators.required],
-    confirmPassword: ['', Validators.required]
-
-  });
+  registerForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private authService : AuthService
+  ) {
+    this.registerForm = this.fb.group({
+      nick: [
+        '',
+        [Validators.required],
+        [(control: AbstractControl) => this.checkNickExists(control)]
+      ],
+      nombre: ['', [Validators.required]],
+      apellidos: ['', [Validators.required]],
+      telefono: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      email: [
+        '',
+        [Validators.required, Validators.email],
+        [(control: AbstractControl) => this.checkEmailExists(control)]
+      ],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  
 
   registerUser(): void {
     if (this.registerForm.valid) {
@@ -44,34 +48,38 @@ export class UserRegisterComponent {
       this.userService.registerUser(user).subscribe(
         (response) => {
           if (response.body && response.body.id !== undefined) {
-            // Guardar el token de sesión y la información del usuario en el almacenamiento local
             const sessionId = response.body.sessionId;
             if (sessionId) {
               localStorage.setItem('sessionId', sessionId);
-            } else {
-              // Manejar el caso cuando sessionId es undefined
             }
       
             localStorage.setItem('user', JSON.stringify(response.body));
-      
-            // Guardar el ID del usuario en el localStorage
             localStorage.setItem('id', response.body.id.toString());
-      
-            // Redirigir a la página de perfil del usuario
             this.router.navigate(['users', response.body.id]);
+
+            
+            
+
           }
         },
         (error) => {
-          // Error en el registro
           console.error('Error en el registro:', error);
           // Manejar el error aquí
         }
       );
-      
-      
     }
   }
   
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+  
+    if (password && confirmPassword && password !== confirmPassword) {
+      return { passwordMismatch: true };
+    }
+  
+    return null;
+  }
 
   // Método para verificar si el email ya existe
   checkEmailExists(control: AbstractControl): Observable<ValidationErrors | null> {

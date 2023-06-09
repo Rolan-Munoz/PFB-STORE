@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
 import { UserService } from './service/user.service';
 
 
@@ -12,6 +12,8 @@ export class AuthService {
   loginForm: FormGroup;
   error: string = '';
   isLoginFormVisible: boolean = false;
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -31,11 +33,9 @@ export class AuthService {
       switchMap((response) => {
         if (response.sessionId && response.id !== undefined) {
           localStorage.setItem('sessionId', response.sessionId);
-  
-          // Guardar el ID del usuario en el localStorage
+
           localStorage.setItem('id', response.id.toString());
   
-          // Realizar una solicitud adicional para obtener los datos completos del usuario
           return this.userService.getUserById(response.id).pipe(
             tap((userData) => {
               localStorage.setItem('user', JSON.stringify(userData));
@@ -56,7 +56,7 @@ export class AuthService {
       })
     );
   }
-  
+
   
   
   
@@ -71,7 +71,6 @@ export class AuthService {
       },
       (error) => {
         console.error('Error al cerrar sesión:', error);
-        // Manejar el error de cierre de sesión aquí
       }
     );
   }

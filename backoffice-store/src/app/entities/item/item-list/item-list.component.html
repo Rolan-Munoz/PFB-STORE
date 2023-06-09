@@ -18,9 +18,6 @@
 </form>
 
 
-<div id="nittpmCreateContainer" >
-    <button [routerLink]="['/items', 'new']">Nuevo Articulo</button>
-</div>
 
 <table *ngIf="items.length > 0">
     <thead>
@@ -39,11 +36,10 @@
             <td>{{ item.name}}</td>
             <td>{{ item.price}}</td>
 
-            <button id="btnEditItem" [routerLink]="['/admin/items',item.id]">Editar Template</button>
-                <button id="btnEditReactiveItem" [routerLink]="['/admin/items','reactive',item.id]">Editar reactivo</button>
-            
-            
-            <td> <button id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete" (click)="prepareItemToDelete(item.id!);">Eliminar</button></td>
+            <td>
+                <button id="btnEditReactiveItem" [routerLink]="['/admin/items','reactive',item.id]">Editar</button>
+                <button id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete" (click)="prepareItemToDelete(item.id!);">Eliminar</button>
+            </td>
         </tr>
     </tbody>
 </table>

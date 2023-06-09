@@ -16,8 +16,19 @@
     margin: 20px; 
     border: 2px solid black;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;
-    
+    max-width: 400px;
 }
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+    white-space: normal; 
+    overflow: hidden; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+}
+
 
 .show {
     display: block; 

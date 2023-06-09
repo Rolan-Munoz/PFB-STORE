@@ -31,8 +31,12 @@
     <div class="form-group">
         <label for="telefono">Teléfono:</label>
         <input type="text" id="telefono" formControlName="telefono" required>
+        <!-- Validación para el campo de teléfono -->
         <div *ngIf="registerForm.get('telefono')!.errors?.['required'] && registerForm.get('telefono')!.touched" class="error-message">
-        El teléfono es obligatorio.
+            El teléfono es obligatorio.
+        </div>
+        <div *ngIf="registerForm.get('telefono')!.errors?.['pattern'] && registerForm.get('telefono')!.touched" class="error-message">
+            El teléfono debe ser numérico.
         </div>
     </div>
 
@@ -53,25 +57,24 @@
     <div class="form-group">
         <label for="password">Contraseña:</label>
         <input type="password" id="password" formControlName="password" required>
+        <!-- Validaciones para el campo de contraseña -->
         <div *ngIf="registerForm.get('password')!.errors?.['required'] && registerForm.get('password')!.touched" class="error-message">
-        La contraseña es obligatoria.
+            La contraseña es obligatoria.
         </div>
         <div *ngIf="registerForm.get('password')!.errors?.['minlength'] && registerForm.get('password')!.touched" class="error-message">
             La contraseña debe tener al menos 6 caracteres.
-            </div>
         </div>
-
-
-        <div class="form-group">
-            <label for="confirmPassword">Confirmar Contraseña:</label>
-            <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
-            <div *ngIf="registerForm.get('confirmPassword')!.errors?.['required'] && registerForm.get('confirmPassword')!.touched" class="error-message">
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña:</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+        <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required'] && registerForm.get('confirmPassword')?.touched" class="error-message">
             Debes confirmar la contraseña.
-            </div>
-            <div *ngIf="registerForm.get('confirmPassword')!.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')!.touched" class="error-message">
-            Las contraseñas no coinciden.
-            </div>
         </div>
+        <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched" class="error-message">
+            Las contraseñas no coinciden.
+        </div>
+    </div>
     
         <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
 

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/entities/user/auth.service';
 import { UserService } from 'src/app/entities/user/service/user.service';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,14 +15,17 @@ export class NavbarComponent implements OnInit {
   isLoginFormVisible = false;
   userId: number | undefined;
 
-
   loginForm!: FormGroup;
-  error: string ="";
+  errorMessage: string = "";
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private  userService: UserService,  private router: Router) {
-    this.userId =this.userService.getUserIdFromLocalStorage();
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.userId = this.userService.getUserIdFromLocalStorage();
   }
-
 
   ngOnInit(): void {
     this.userId = this.userService.getUserIdFromLocalStorage();
@@ -51,10 +53,12 @@ export class NavbarComponent implements OnInit {
 
   showLoginForm(): void {
     this.isLoginFormVisible = true;
+    this.errorMessage = ""; // Limpiar el mensaje de error al mostrar el formulario de inicio de sesión
   }
 
   hideLoginForm(): void {
     this.isLoginFormVisible = false;
+    this.errorMessage = ""; // Limpiar el mensaje de error al ocultar el formulario de inicio de sesión
   }
 
   login(): void {
@@ -78,7 +82,7 @@ export class NavbarComponent implements OnInit {
             }
           },
           error: (error) => {
-            this.error = 'Credenciales inválidas. Por favor, inténtalo nuevamente.';
+            this.errorMessage = 'Credenciales inválidas. Por favor, inténtalo nuevamente.';
             console.log(error);
           }
         });
