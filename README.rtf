@@ -1,103 +1,78 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2709
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh16380\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+PROYECTO FINAL DE BOOTCAMP KREITEK-NUNSYS 2023
 
-\f0\b\fs48 \cf0 PROYECTO FINAL DE BOOTCAMP KREITEK-NUNSYS 2023\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
+		Este proyecto de carácter voluntario tiene como objetivo poner en practica de forma integrada los diferentes aspectos y tecnologías que se han ido desarrollando durante el periodo de practicas, que en este caso ha sido la realización de un Bootcamp 		FullStack.
+		Las tecnologías que se han sudado para la realización de este proyecto son las siguientes:
+		BACKEND: Se ha hecho uso del lenguaje de programación JAVA, a través del frameworks de Spring Boot. Algunas de las herramientas internas que se han usado han sido las siguientes:
+				-  Spring Frameworks
+				- Spring Boot Data JPA: Para facilitar el acceso y manipulación de la base de datos. Utiliza un estándar ORM y da soporte a la capa de persistencia.
+				-Spring Boot Validation: Esta librería da soporte a la validación de datos, en nuestro caso se usa para la validación de la información que llega a través de formularios.
+				-Spring Boot Web: Nos da soporte para crear las funcionalidades web como controladores, solicitudes HTTP , es una de los componentes básicos para este tipo de proyectos.
+				- Spring Security: Este componente brinda soporte para la seguridad y autenticación, en nuestro caso se ha hecho un uso modesto de la misma y se ha usado para la encriptacion de contraseñas.
+				-MapStructs: Nos da soporte  y nos facilita la tarea de mapeo de los objetos.
+				-H2 Database: Base de datos en memoria útil y eficiente para contextos de desarrollo, no asi de producción.
+		         FRONTEND: Se ha hecho uso de los lenguajes básicos de maquetación, estructuración y diseño de vistas, como son HTML , CSS y Bootstrap; Así como del uso del frameworks angular con el lenguaje TypeScript para la creación de paginas bajo el estándar SPA (Single Page Application), lo cual crea aplicaciones de una sola pagina, donde creamos una serie de rutas que nos mueven por ella, dando la sensación de que cambiamos de pagina. Esto ayuda a simplificar la pagina, hacerla mas eficiente al evitar llamar al servidor para mostrar vistas constantemente y por lo tanto reduciendo los tiempos de carga y ejecucion.
 
-\f1\b0\fs24 		Este proyecto de car\'e1cter voluntario tiene como objetivo poner en practica de forma integrada los diferentes aspectos y tecnolog\'edas que se han ido desarrollando durante el periodo de practicas, que en este caso ha sido la realizaci\'f3n de un Bootcamp 		FullStack.\
-		Las tecnolog\'edas que se han sudado para la realizaci\'f3n de este proyecto son las siguientes:\
-\pard\tx685\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1602\fi-208\pardirnatural\partightenfactor0
 
-\f0\b \cf0 		BACKEND: 
-\f1\b0 Se ha hecho uso del lenguaje de programaci\'f3n JAVA, a trav\'e9s del frameworks de Spring Boot. Algunas de las herramientas internas que se han usado han sido las siguientes:\
-				-  Spring Frameworks\
-				- Spring Boot Data JPA: Para facilitar el acceso y manipulaci\'f3n de la base de datos. Utiliza un est\'e1ndar ORM y da soporte a la capa de persistencia.\
-				-Spring Boot Validation: Esta librer\'eda da soporte a la validaci\'f3n de datos, en nuestro caso se usa para la validaci\'f3n de la informaci\'f3n que llega a trav\'e9s de formularios.\
-				-Spring Boot Web: Nos da soporte para crear las funcionalidades web como controladores, solicitudes HTTP , es una de los componentes b\'e1sicos para este tipo de proyectos.\
-				- Spring Security: Este componente brinda soporte para la seguridad y autenticaci\'f3n, en nuestro caso se ha hecho un uso modesto de la misma y se ha usado para la encriptacion de contrase\'f1as.\
-				-MapStructs: Nos da soporte  y nos facilita la tarea de mapeo de los objetos.\
-				-H2 Database: Base de datos en memoria \'fatil y eficiente para contextos de desarrollo, no asi de producci\'f3n.\
 
-\f0\b 		         FRONTEND: 
-\f1\b0 Se ha hecho uso de los lenguajes b\'e1sicos de maquetaci\'f3n, estructuraci\'f3n y dise\'f1o de vistas, como son HTML , CSS y Bootstrap; As\'ed como del uso del frameworks angular con el lenguaje TypeScript para la creaci\'f3n de paginas bajo el est\'e1ndar SPA (Single Page Application), lo cual crea aplicaciones de una sola pagina, donde creamos una serie de rutas que nos mueven por ella, dando la sensaci\'f3n de que cambiamos de pagina. Esto ayuda a simplificar la pagina, hacerla mas eficiente al evitar llamar al servidor para mostrar vistas constantemente y por lo tanto reduciendo los tiempos de carga y ejecucion.\
-\
-\
-\
+CONSTRUCCION DEL PROYECTO:
+	HITO1: REGISTRO Y AUTENTICACION:
+		En este primer hito, se ha comenzado a trabajar con el backend, después de probar varias cuestiones, se opto por realizar un registro y autenticación simple, arropado por la creación de contraseñas seguras y el envío de token de sesion al front y 	guardar el token de sesión en el servidor. 
+		En este aspecto se ha trabajado siguiendo la estructura y estrategias con las que se había desarrollado la base del proyecto; Se ha comenzado por la creación de la entidad User y su Dto, luego se ha creado su mapper extendiendo de una interfaz 	genérica que usamos en los diferentes mapper. Después se ha trabajado las interfaces de UserRepository, la cual extiende JPARepository, UsersService y el UserPErsistence. 
+	El objetivo del userRepository es acceder a la capa de datos, con JPArepository tenemos ya predefinido las operaciones CRUD básicas que vamos a necesitar, y en el repositorio solo añadimos las especificas de nuestra entidad.
+	El objetivo de UserService definimos los servicios y metodos que van a actuar sobre la entidad users. Como obtener su informacion, comprobar que existen, validar email etc.
+	El objetivo de UserPErsistence es encargarse de la persistencia de los datos relacionados con la entidad de dominio Users.
+		Cabe destacar que se ha creado en la capa de infraestructura una funcionalidad SessionManager que maneja las sesiones activas del usuario para hacer las comprobaciones de autenticación desde el servidor, añadiendo asi una capa mas de 	seguridad. Dichas sesiones se guardan en la una clase de sesiones. 
 
-\f0\b CONSTRUCCION DEL PROYECTO:\
-	HITO1: REGISTRO Y AUTENTICACION:\
-		
-\f1\b0 En este primer hito, se ha comenzado a trabajar con el backend, despu\'e9s de probar varias cuestiones, se opto por realizar un registro y autenticaci\'f3n simple, arropado por la creaci\'f3n de contrase\'f1as seguras y el env\'edo de token de sesion al front y 	guardar el token de sesi\'f3n en el servidor. \
-		En este aspecto se ha trabajado siguiendo la estructura y estrategias con las que se hab\'eda desarrollado la base del proyecto; Se ha comenzado por la creaci\'f3n de la entidad User y su Dto, luego se ha creado su mapper extendiendo de una interfaz 	gen\'e9rica que usamos en los diferentes mapper. Despu\'e9s se ha trabajado las interfaces de UserRepository, la cual extiende JPARepository, UsersService y el UserPErsistence. \
-	El objetivo del userRepository es acceder a la capa de datos, con JPArepository tenemos ya predefinido las operaciones CRUD b\'e1sicas que vamos a necesitar, y en el repositorio solo a\'f1adimos las especificas de nuestra entidad.\
-	El objetivo de UserService definimos los servicios y metodos que van a actuar sobre la entidad users. Como obtener su informacion, comprobar que existen, validar email etc.\
-	El objetivo de UserPErsistence es encargarse de la persistencia de los datos relacionados con la entidad de dominio Users.\
-		Cabe destacar que se ha creado en la capa de infraestructura una funcionalidad SessionManager que maneja las sesiones activas del usuario para hacer las comprobaciones de autenticaci\'f3n desde el servidor, a\'f1adiendo asi una capa mas de 	seguridad. Dichas sesiones se guardan en la una clase de sesiones. \
-\
-		Posteriormente se ha implementado dichas interfaces, con el objetivo de crear la logica de los metodos que se han definido den dichas interfaces., Esto no se hace sin motivo, si no que el uso de esta estrategia sirve para mejorar la estructura del 	codifo de la aplicaci\'f3n, desacoplar las diferentes funcionalidades y capas de la aplicaci\'f3n, como son las capas de dominio, infraestructura y aplicaci\'f3n. Con esto conseguimos un c\'f3digo mas limpio, que dependa menos de otros componentes y 	evite, entre otras cosas, dependencias circulares, facilita la escalabilidad, mantenimiento y la creaci\'f3n de nuevas funcionalidades, y por ultimo, tambien facilita que en un futura se puedan modificar funcionalidades, tanto por mi parte, como de 	futuros colaboradores.\
-	\
-		En cuanto al frontend, se ha utilizado las diferentes facilidades que nos da angular como frameworks para conectarnos a nuestra API. Al igual que se ha hecho con el backend, hemos seguido una estrategia similar a la base del proyecto para 	intentar dar coherencia y calidad al codigo, asi como facilitar la comprensi\'f3n del mismo a trav\'e9s de una estructuraci\'f3n y separaci\'f3n de funcionalidades coherente.\
-		En primer lugar hemos creado el modelo de Users, dentro de la carpeta Entidad, donde agrupamos nuestras diferentes carpetas donde se encontraran las entidades y sus componentes asociados. Se ha creado un servicio de usuario que nos 	conecta a la APi, asi como un  AuithService que maneja la logica de login y logout. \
-		Las funcionalidades de login y logout se han a\'f1adido al navbar, ya que necesitamos que este muestre la informacion de usuario y el bot\'f3n de logout al comprobar que existe una sesion iniciada y esta sea valida, de no ser asi nos mostrar\'eda 	\'fanicamente el bot\'f3n de inicio de sesion, el cual nos llevar\'eda a una ventana para acreditarnos como usuarios, y en caso de no tener credenciales, poder acceder al formulario de registro. \
-		En cuanto a la autenticacion, podemos decir que desde el cliente estamos recogiendo un token de sesion que nos manda el servidor, el cual nos va a servir para hacer las comprobaciones necesarias para los diferentes metodos que requieran de 	autenticaci\'f3n, como los que veremos en lo siguientes hitos. Tambien hay validaciones en el cliente que tienen que ver con los diferentes formularios que encontramos, aportando feedback al usuario cuando comete errores, o no rellena los campos 	necesarios. \
-	Por ultimo, encontramos un perfil de usuario en el cual se vera reflejada la informacion que ha facilitado el usuario registrado, en ella, tambien se ver\'e1n mas informaciones como productos favoritos o el carrito. \
-\
+		Posteriormente se ha implementado dichas interfaces, con el objetivo de crear la logica de los metodos que se han definido den dichas interfaces., Esto no se hace sin motivo, si no que el uso de esta estrategia sirve para mejorar la estructura del 	codifo de la aplicación, desacoplar las diferentes funcionalidades y capas de la aplicación, como son las capas de dominio, infraestructura y aplicación. Con esto conseguimos un código mas limpio, que dependa menos de otros componentes y 	evite, entre otras cosas, dependencias circulares, facilita la escalabilidad, mantenimiento y la creación de nuevas funcionalidades, y por ultimo, tambien facilita que en un futura se puedan modificar funcionalidades, tanto por mi parte, como de 	futuros colaboradores.
 	
-\f0\b HITO 2: FAVORITOS:\
-		
-\f1\b0 Este segundo hito requiere de la creaci\'f3n de una nueva entidad en nuestra capa de dominio, en este caso favorite, la cual actua como tabla que relaciona las entidades de user e item. La relaci\'f3n de esta entidad con las mencionadas es de 	ManyToOne, y en base a eso se construye la entidad y su persistencia en la base de datos. Siguiendo la estrategia del hito anterior, se han ido creando las diferentes interfaces y clases, teniendo en cuenta las especificaciones concretas de esta 	entidad favoritos.\
-		Los metodos espec\'edficos que hemos implantando aqui son el a\'f1adir favoritos o remover favoritos, el cual asocia un item a un usuario a trav\'e9s de sus ids. Tambien tenemos la posibilidad de extraer la lista de favoritos de cada usuario, asi como un 	metodo para validar si un item es favorito para un usuario determinado. Es este ultimo metodo el que nos ayudara a realizar las comprobaciones necesarias para saber si el item en cuesti\'f3n puede ser a\'f1adido, o en su defecto no puede ser a\'f1adido 	porque ya esta en favoritos y ha de ser, si asi se quiere, removido. \
-	Se aprovecha el control de sesiones creado anteriormente para imposibilitar  que un usuario no registrado pueda a\'f1adir items a favoritos. \
-	\
-		En cuanto al frontend, se ha creado un servicio de usuarios, el cual nos hace las llamadas a nuestra api. Este servicio se va a inyectar en los diferentes componentes que necesitamos crear o adaptar pa conseguir la nueva funcionalida. Por un lado 	hemos creado una ficha de producto individual a la cual se accede desde la lista de art\'edculos que tenemos creada, dentro de esta ficha, donde se visualizan los diferentes datos que nos aporta la entidad item, podemos a\'f1adir estos productos a 	nuestro perfil, siempre y cuando estemos con la sesion activa. En caso de ya tener el item en cuesti\'f3n agregado como favorito, nos cambiara el bot\'f3n para que se muestre el de quitar de favoritos. Como mencion\'e1bamos antes, esta es una de las 	aplicaciones que damos al metodo para ver si es favorito o no el item. \
-		En nuestro perfil de usuario, accedemos a la informacion del usuario en cuanto a sus favoritos, si no tiene, saldr\'e1 un mensaje donde dice que no tienes favoritos, en caso de tenerlo aparecer\'e1 una lista de los mismos con la informacion relevante de 	el, a\'f1adiendole ademas, un bot\'f3n para, desde esa misma lista, podamos  removerlo de los favoritos. \
-	Por ultimo se ha ido dando estilos a algunas partes de la aplicaci\'f3n, no obstante, la matizaci\'f3n en cuanto a estilos y dise\'f1o final, se har\'e1n en una etapa posterior del desarrollo de la aplicaci\'f3n.\
-\
-\
+		En cuanto al frontend, se ha utilizado las diferentes facilidades que nos da angular como frameworks para conectarnos a nuestra API. Al igual que se ha hecho con el backend, hemos seguido una estrategia similar a la base del proyecto para 	intentar dar coherencia y calidad al codigo, asi como facilitar la comprensión del mismo a través de una estructuración y separación de funcionalidades coherente.
+		En primer lugar hemos creado el modelo de Users, dentro de la carpeta Entidad, donde agrupamos nuestras diferentes carpetas donde se encontraran las entidades y sus componentes asociados. Se ha creado un servicio de usuario que nos 	conecta a la APi, asi como un  AuithService que maneja la logica de login y logout. 
+		Las funcionalidades de login y logout se han añadido al navbar, ya que necesitamos que este muestre la informacion de usuario y el botón de logout al comprobar que existe una sesion iniciada y esta sea valida, de no ser asi nos mostraría 	únicamente el botón de inicio de sesion, el cual nos llevaría a una ventana para acreditarnos como usuarios, y en caso de no tener credenciales, poder acceder al formulario de registro. 
+		En cuanto a la autenticacion, podemos decir que desde el cliente estamos recogiendo un token de sesion que nos manda el servidor, el cual nos va a servir para hacer las comprobaciones necesarias para los diferentes metodos que requieran de 	autenticación, como los que veremos en lo siguientes hitos. Tambien hay validaciones en el cliente que tienen que ver con los diferentes formularios que encontramos, aportando feedback al usuario cuando comete errores, o no rellena los campos 	necesarios. 
+	Por ultimo, encontramos un perfil de usuario en el cual se vera reflejada la informacion que ha facilitado el usuario registrado, en ella, tambien se verán mas informaciones como productos favoritos o el carrito. 
+
+	HITO 2: FAVORITOS:
+		Este segundo hito requiere de la creación de una nueva entidad en nuestra capa de dominio, en este caso favorite, la cual actua como tabla que relaciona las entidades de user e item. La relación de esta entidad con las mencionadas es de 	ManyToOne, y en base a eso se construye la entidad y su persistencia en la base de datos. Siguiendo la estrategia del hito anterior, se han ido creando las diferentes interfaces y clases, teniendo en cuenta las especificaciones concretas de esta 	entidad favoritos.
+		Los metodos específicos que hemos implantando aqui son el añadir favoritos o remover favoritos, el cual asocia un item a un usuario a través de sus ids. Tambien tenemos la posibilidad de extraer la lista de favoritos de cada usuario, asi como un 	metodo para validar si un item es favorito para un usuario determinado. Es este ultimo metodo el que nos ayudara a realizar las comprobaciones necesarias para saber si el item en cuestión puede ser añadido, o en su defecto no puede ser añadido 	porque ya esta en favoritos y ha de ser, si asi se quiere, removido. 
+	Se aprovecha el control de sesiones creado anteriormente para imposibilitar  que un usuario no registrado pueda añadir items a favoritos. 
 	
-\f0\b HITO3: CARRITO E HITO4: PEDIDOS\
-		
-\f1\b0 En estos hitos nos encontramos en la necesidad de crear la funcionalidad del carrito, donde poder a\'f1adir y quitar productos, modificar la cantidad de un producto y tener un precio total de los mismos. Esta hito no ha sido posible de realizarlo antes de 	la fecha de entrega por varios motivos, los principales han sido un error con git flow, la estrategia de control de versiones usadas, debido al cual hemos tenido que volver hacia atr\'e1s en el proyecto,  y un error log\'edstico en el equipo donde se esta 	desarrollando la aplicaci\'f3n, afectando a la parte de la base de datos H2 por lo tanto, se ha decidido enfatizar en los dos primeros hitos, darle robustez y seguridad, para poder hacer una entrega que compile sin problemas y funcionalidades 	acabadas,  y dejar estos hitos para un futuro desarrollo, aunque fuera de la fecha de entrega, pero parece interesante como refuerzo de conocimiento y adquisici\'f3n de experiencia practica. \
-\
-\
+		En cuanto al frontend, se ha creado un servicio de usuarios, el cual nos hace las llamadas a nuestra api. Este servicio se va a inyectar en los diferentes componentes que necesitamos crear o adaptar pa conseguir la nueva funcionalida. Por un lado 	hemos creado una ficha de producto individual a la cual se accede desde la lista de artículos que tenemos creada, dentro de esta ficha, donde se visualizan los diferentes datos que nos aporta la entidad item, podemos añadir estos productos a 	nuestro perfil, siempre y cuando estemos con la sesion activa. En caso de ya tener el item en cuestión agregado como favorito, nos cambiara el botón para que se muestre el de quitar de favoritos. Como mencionábamos antes, esta es una de las 	aplicaciones que damos al metodo para ver si es favorito o no el item. 
+		En nuestro perfil de usuario, accedemos a la informacion del usuario en cuanto a sus favoritos, si no tiene, saldrá un mensaje donde dice que no tienes favoritos, en caso de tenerlo aparecerá una lista de los mismos con la informacion relevante de 	el, añadiendole ademas, un botón para, desde esa misma lista, podamos  removerlo de los favoritos. 
+	Por ultimo se ha ido dando estilos a algunas partes de la aplicación, no obstante, la matización en cuanto a estilos y diseño final, se harán en una etapa posterior del desarrollo de la aplicación.
+
+
+	HITO3: CARRITO E HITO4: PEDIDOS
+		En estos hitos nos encontramos en la necesidad de crear la funcionalidad del carrito, donde poder añadir y quitar productos, modificar la cantidad de un producto y tener un precio total de los mismos. Esta hito no ha sido posible de realizarlo antes de 	la fecha de entrega por varios motivos, los principales han sido un error con git flow, la estrategia de control de versiones usadas, debido al cual hemos tenido que volver hacia atrás en el proyecto,  y un error logístico en el equipo donde se esta 	desarrollando la aplicación, afectando a la parte de la base de datos H2 por lo tanto, se ha decidido enfatizar en los dos primeros hitos, darle robustez y seguridad, para poder hacer una entrega que compile sin problemas y funcionalidades 	acabadas,  y dejar estos hitos para un futuro desarrollo, aunque fuera de la fecha de entrega, pero parece interesante como refuerzo de conocimiento y adquisición de experiencia practica. 
+
+
+	CONCLUSIONES Y SUGERENCIAS DE MEJORA
 	
-\f0\b CONCLUSIONES Y SUGERENCIAS DE MEJORA\
-	\
-		
-\f1\b0 Como conclusi\'f3n podemos decir que el trabajo ha supuesto un gran reto de integraci\'f3n del conocimiento aprendido en los \'faltimos tres meses, se ha necesitado tomar una actitud de desarrollador fullstack para realizar este trabajo. Esta actitud 	tomada ha servido para dar una visi\'f3n general del desarrollo de aplicaciones, y conocer de primera mano las estrategias metodol\'f3gicas de desarrollo.  \
-		Otra de las conclusiones a las que se ha llegado es a la necesidad de reforzar diferentes aspectos, los cuales, o bien han sido de una mayor dificultad, o bien se han dejado de realizar por falta de tiempo o planificaci\'f3n. Algunos de los aspectos mas 	importantes a mejorar son; Mejorar la programaci\'f3n temporal del proyecto, trabajado en base a iteraciones que completen funcionalidades. Mejorar la planificaci\'f3n del espacio de nombres tanto para clases, rutas y componentes. Implementar los 	mecanismos de seguridad de Spring Security. Mejorar el uso de frameworks de estilos como Bootstrap y SaSS. Mejorar la claridad y estructuraci\'f3n del codigo. \
-	\
-	Algunas sugerencias de mejoras:\
-	Teniendo en cuenta que el proyecto aun le quedan funcionalidades por implementar, que como se ha comentado se ir\'e1n haciendo para dejarlo finalizado, es importante, de cara a futuros proyectos, tener en cuenta una serie de cuestiones:\
-	1: Tener en cuenta las necesidades de refuerzo de las que hemos hablando anteriormente\
-	2: Implementar poco a poco los fundamentos y principios SOLID para evitar el \'93codigo espagueti\'94 y facilitar el uso posterior del mismo codigo, ya sea por mantenimiento como por escalabilidad. \
-	3: Implementaci\'f3n poco a poco de los patrones de dise\'f1os mas comunes para evitar, entre otras cosas, el acoplamiento de entidades, el codigo duplicado y las dependencias circulares, entre otros problemas.\
-	4: Uso de las herramientas de seguridad tanto en el backend como en el frontend. Usarse spring security, token JWT , guards y otras opciones de seguridad en el frontend.\
-	5: Implementaci\'f3n de roles, muy relacionado al punto anterior, para crear la figura del admin, para poder tener permisos que los usuarios registrados y los visitantes no tienen. \
-\
-	En definitiva, el proyecto ha sido muy satisfactorio, ha faltando culminar al menos el punto tres para haber llegado al objetivo marcado en un primer momento por mi parte, pero a pesar de ello, el trabajo que se ha hecho ha intentado cumplir en todo momento con lo criterios m\'ednimos de calidad, seguridad y buenas practicas. A partir de ahora solo queda poner en practica todo el conocimiento adquirido en diferentes proyectos personales y profesionales, asi como seguir aprendiendo y desarrollando habilidades tanto duras como blandas, con el objetivo de desarrollar una carrera profesional interesante en el mundo del desarrollo de software, a poder ser, especializ\'e1ndome en el backend. \
-\
-	\
- Rolan Mu\'f1oz\
+		Como conclusión podemos decir que el trabajo ha supuesto un gran reto de integración del conocimiento aprendido en los últimos tres meses, se ha necesitado tomar una actitud de desarrollador fullstack para realizar este trabajo. Esta actitud 	tomada ha servido para dar una visión general del desarrollo de aplicaciones, y conocer de primera mano las estrategias metodológicas de desarrollo.  
+		Otra de las conclusiones a las que se ha llegado es a la necesidad de reforzar diferentes aspectos, los cuales, o bien han sido de una mayor dificultad, o bien se han dejado de realizar por falta de tiempo o planificación. Algunos de los aspectos mas 	importantes a mejorar son; Mejorar la programación temporal del proyecto, trabajado en base a iteraciones que completen funcionalidades. Mejorar la planificación del espacio de nombres tanto para clases, rutas y componentes. Implementar los 	mecanismos de seguridad de Spring Security. Mejorar el uso de frameworks de estilos como Bootstrap y SaSS. Mejorar la claridad y estructuración del codigo. 
+	
+	Algunas sugerencias de mejoras:
+	Teniendo en cuenta que el proyecto aun le quedan funcionalidades por implementar, que como se ha comentado se irán haciendo para dejarlo finalizado, es importante, de cara a futuros proyectos, tener en cuenta una serie de cuestiones:
+	1: Tener en cuenta las necesidades de refuerzo de las que hemos hablando anteriormente
+	2: Implementar poco a poco los fundamentos y principios SOLID para evitar el “codigo espagueti” y facilitar el uso posterior del mismo codigo, ya sea por mantenimiento como por escalabilidad. 
+	3: Implementación poco a poco de los patrones de diseños mas comunes para evitar, entre otras cosas, el acoplamiento de entidades, el codigo duplicado y las dependencias circulares, entre otros problemas.
+	4: Uso de las herramientas de seguridad tanto en el backend como en el frontend. Usarse spring security, token JWT , guards y otras opciones de seguridad en el frontend.
+	5: Implementación de roles, muy relacionado al punto anterior, para crear la figura del admin, para poder tener permisos que los usuarios registrados y los visitantes no tienen. 
+
+	En definitiva, el proyecto ha sido muy satisfactorio, ha faltando culminar al menos el punto tres para haber llegado al objetivo marcado en un primer momento por mi parte, pero a pesar de ello, el trabajo que se ha hecho ha intentado cumplir en todo momento con lo criterios mínimos de calidad, seguridad y buenas practicas. A partir de ahora solo queda poner en practica todo el conocimiento adquirido en diferentes proyectos personales y profesionales, asi como seguir aprendiendo y desarrollando habilidades tanto duras como blandas, con el objetivo de desarrollar una carrera profesional interesante en el mundo del desarrollo de software, a poder ser, especializándome en el backend. 
+
+	
+ Rolan Muñoz
  rolanmunoz.dev@gmail.com
-\f0\b \
-	\
 	
-\f1\b0 \
-\
-\
-	\
-\
-\
-\
-\
-\
-\
-\
-\
-}
+	
+
+
+	
+
+
+
+
+
+
+
+
